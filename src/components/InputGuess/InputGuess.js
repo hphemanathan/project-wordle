@@ -5,24 +5,46 @@ import React from 'react';
 
 
 
-function InputGuess() {
+function InputGuess({guesses, setGuesses, AddNewGuess}) {
+
+  const [inputGuess, setInputGuess] = React.useState('')
   //Setting state for update guess input
-  const [guess, setGuess] = React.useState('');
+  // const [guess, setGuess] = React.useState('');
 
-function handleSubmit (event) {
-  event.preventDefault();
-  console.log( guess);
-  setGuess('');
-}
+  // function AddNewGuess(guess) {
+  //   const newGuess = {
+  //     guess,
+  //     id: Math.random(),
+  //   };
+  //   const nextGuesses = [...guesses, newGuess];
+  //   setGuesses(nextGuesses);
+  // }
 
+ 
 
 
 
  
   return (
-    <form class='guess-input-wrapper' onSubmit={(event) => handleSubmit(event)}>
-      <label for='guess-input'>Enter guess:</label>
-      <input uppercase id='guess-input' type='text' value={guess} onChange={(event) => setGuess(event.target.value.toUpperCase())}/>
+    <form
+      className='guess-input-wrapper'
+      onSubmit={(event) => {
+        event.preventDefault();
+        AddNewGuess(inputGuess);
+        setInputGuess("");
+      }}>
+      <label htmlFor='guess-input'>Enter guess:</label>
+      <input
+        id='guess-input'
+        minLength={5}
+        maxLength={5}
+        required
+        title='Please provide 5 letter word'
+        pattern='[a-zA-Z]{5}'
+        type='text'
+        value={inputGuess}
+        onChange={(event) => setInputGuess(event.target.value.toUpperCase())}
+      />
     </form>
   );
 }
